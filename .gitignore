@@ -1,0 +1,8 @@
+*.blend1
+*.blend2
+*.otf
+*.ttf
+*.woff
+*.pyc
+
+# vim: nospell
