@@ -1,0 +1,39 @@
+Calculation Notes
+=================
+
+Bottom bar box mask
+-------------------
+  * With relative units, "1.00" is the full width, even for Y.
+  * We set the origin (center) of the bar to the bottom center of the image.
+  * The width of 1.1 allows it to cover more than the full width,
+    without any antialiasing issues at the corners.
+  * We want the actual height to be 5/18 of the image height,
+    which is (5/18)*(720/1280) of the image width.
+    But because the center of the box is at the bottom of the image,
+    we have to double this height, so the final height is
+      2*(5/18)*(720/1280) = 0.312.
+    
+Leaf image
+----------
+  * Relative units go from -0.500 to 0.500.
+    The extrema are the full width (X) or height (Y).
+  * The leaf image is sized to 289x100.
+    This is the correct size for a 1280x720 frame.
+  * The leaf should be vertically centered within the bottom bar,
+    so its zero-based center Y position should be
+      (bottom_bar_height / 2) = 0.5*(5/18) = 0.139.
+    The actual position should then be
+      (zero_based_Y - 0.5) = 0.5*(5/18) - 0.5 = -0.361.
+  * The absolute Y position of the center of the leaf is
+      (zero_based_Y * 720) = 0.5*(5/18)*720 = 100.
+    The absolute Y position of the base of the leaf is
+      (abs_center_Y - leaf_height / 2) = 100 - (100 / 2) = 50.
+    This is essentially the bottom padding.
+  * We want the left padding to be the same as the bottom padding,
+    so the absolute X position of the left of the leaf should be 50.
+    The absolute X position of the center of the leaf should be
+      (abs_left_X + leaf_width / 2) = 50 + (289 / 2) = 194.5.
+    The relative, zero-based X position of the center of the leaf should be
+      (abs_center_X / 1280) = 194.5 / 1280 = 0.152.
+    The final X position of the leaf is
+       (zero_based_X - 0.5) = 194.5 / 1280 - 0.5 = -0.348.
