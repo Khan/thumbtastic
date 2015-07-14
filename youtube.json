@@ -1,0 +1,20 @@
+{
+    "input_directory": "input",
+    "output_directory": "output",
+    "entries": [
+        {
+            "image": "stab1280.png"
+        },
+        {
+            "image": "no_image.png",
+            "title_text": "No image here",
+            "has_image": false
+        },
+        {
+            "image": "balance.png"
+        },
+        {
+            "image": "descartes.png"
+        }
+    ]
+}

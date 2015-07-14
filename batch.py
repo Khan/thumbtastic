@@ -16,13 +16,11 @@ import os.path
 
 import core
 
-if __name__ == "__main__":
-    import bpy.path
-    os.chdir(bpy.path.abspath("//"))
 
-
-def render_batch(manifest_file):
+def render_batch(render_class, manifest_file):
     """Render a group of images, reading a JSON manifest.
+
+    The render_class parameter should be a subclass of BaseThumbnailRenderer.
 
     The manifest should be of the form:
 
@@ -32,24 +30,16 @@ def render_batch(manifest_file):
             "entries": [
                 {
                     "image": "abc.png",
-                    "title_text": "The Beauty\nof Algebra",
-                    "has_image": true
-                },
-                {
-                    "image": "def.png",
-                    "title_text": "No image here"
-                },
-                {
-                    "image": "ghi.png",
-                    "has_image": true
+                    ...
                 }
             ]
         }
 
-    The "image" entry is required, and specifies the input and output images
+    The "image" attribute is required, and specifies the input and output images
     (in the input and output directories, respectively).
-    The "has_image" parameter is optional; the default is false.
-    The "title_text" parameter is optional; the default is "".
+
+    Any other attribute are optional,
+    and will be passed to the renderer's constructor.
 
     Returns a list of failed images.
     """
@@ -65,17 +55,18 @@ def render_batch(manifest_file):
 
     for entry in manifest["entries"]:
         image = entry["image"]
-        title_text = entry.get("title_text", "")
-        has_image = entry.get("has_image", False)
-
-        input_file = os.path.join(input_directory, image) if has_image else ""
+        input_file = os.path.join(input_directory, image)
         output_file = os.path.join(output_directory, image)
 
-        if core.render_thumbnail(output_file, title_text, input_file):
+        del entry["image"]
+        renderer = render_class(input_image=input_file, **entry)
+        error = renderer.render(output_file, chdir=True)
+
+        if not error:
             print("Success: %s" % image)
             success_count += 1
         else:
-            print("Failure: %s" % image)
+            print("Failure for %s: %s" % (image, error))
             failures.append(image)
 
     print("Done. Succeeded: %s. Failed: %s." % (success_count, len(failures)))
