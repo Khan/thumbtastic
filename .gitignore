@@ -4,5 +4,6 @@
 *.ttf
 *.woff
 *.pyc
+output/
 
 # vim: nospell
