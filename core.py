@@ -13,15 +13,12 @@ class BaseThumbnailRenderer(object):
     Users can simply call the render method, passing the output file name.
     """
 
-    def render(self, output_file, chdir=True):
+    def render(self, output_file):
         """Set up and render the scene, returning any error else None.
         
         If chdir=True, the CWD will be set to the blendfile directory
         before either setup or rendering is performed.
         """
-
-        if chdir:
-            os.chdir(bpy.path.abspath("//"))
 
         error = self.set_up()
         if error:
@@ -99,4 +96,5 @@ class BaseThumbnailRenderer(object):
         }
         default_color = '314453'  #@defaultDomainColor
         hex_color = domain_colors.get(domain, default_color)
-        return [int(hex_color[2*i:2*(i+1)], 16) for i in range(3)]
+        r, g, b = (int(hex_color[2*i:2*(i+1)], 16) / 255.0 for i in range(3))
+        return [r, g, b, 1.000]  # alpha

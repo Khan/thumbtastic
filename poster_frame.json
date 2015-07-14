@@ -2,9 +2,10 @@
     "input_directory": "input",
     "output_directory": "output",
     "entries": [
-        { "image": "no_image.png", "has_image": false },
-        { "image": "stab1280.png" },
+        { "image": "stab1280.png", "domain": "economics-finance-domain" },
         { "image": "balance.png" },
+        { "image": "science.png", "domain": "science" },
+        { "image": "humanities.png", "domain": "humanities" },
         { "image": "descartes.png" }
     ]
 }

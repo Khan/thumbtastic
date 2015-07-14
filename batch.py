@@ -8,11 +8,13 @@ Then, click "Run Script" to change the CWD to the project directory,
 and, in the console at the bottom of the screen, execute
 
     import batch
-    batch.render_batch("path/to/manifest.py")
+    batch.render_batch(MyThumbnailRendererClass, "path/to/manifest.json")
 """
 
 import json
 import os.path
+
+import bpy
 
 import core
 
@@ -21,6 +23,7 @@ def render_batch(render_class, manifest_file):
     """Render a group of images, reading a JSON manifest.
 
     The render_class parameter should be a subclass of BaseThumbnailRenderer.
+    It should expect an "input_image" parameter to its constructor.
 
     The manifest should be of the form:
 
@@ -44,6 +47,8 @@ def render_batch(render_class, manifest_file):
     Returns a list of failed images.
     """
 
+    os.chdir(bpy.path.abspath("//"))
+
     with open(manifest_file, "r") as infile:
         manifest = json.load(infile)
 
@@ -60,7 +65,7 @@ def render_batch(render_class, manifest_file):
 
         del entry["image"]
         renderer = render_class(input_image=input_file, **entry)
-        error = renderer.render(output_file, chdir=True)
+        error = renderer.render(output_file)
 
         if not error:
             print("Success: %s" % image)
