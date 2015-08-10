@@ -3,18 +3,19 @@
     "output_directory": "output",
     "entries": [
         {
-            "image": "stab1280.png"
+            "image": "descartes.png",
+            "title_text": "Introduction to the\nCoordinate Plane",
+            "domain": "math"
         },
         {
-            "image": "no_image.png",
-            "title_text": "No image here",
-            "has_image": false
+            "image": "balance.png",
+            "title_text": "Ostensibly Some\nEconomics Content",
+            "domain": "economics-finance-domain"
         },
         {
-            "image": "balance.png"
-        },
-        {
-            "image": "descartes.png"
+            "image": "stab1280.png",
+            "title_text": "Sample Image",
+            "domain": "science"
         }
     ]
 }
