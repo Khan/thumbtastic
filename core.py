@@ -82,19 +82,23 @@ class BaseThumbnailRenderer(object):
             return "//" + path
 
     def get_domain_color(self, domain):
-        # These are pulled from stylesheets/shared-package/variables.less
-        # under the names @mathDomainColor, @scienceDomainColor, etc.
-        # Keep these up to date.
+        """Get the [r, g, b, alpha] color for a given domain.
+
+        The input should be the domain as used in webapp;
+        i.e., a string like 'math' or 'economics-finance-domain'.
+        """
+
+        # These are specified at: khan.github.io/thumbnail-sketches/
         domain_colors = {
-            'math': '1c758a',
-            'science': '94424f',
-            'humanities': 'ad3434',
-            'economics-finance-domain': 'b77033',
-            'computing': '437a39',
-            'test-prep': '644172',
-            'partner-content': '218270'
+            'math': '58c4dd',
+            'science': 'c55f73',
+            'humanities': 'f16257',
+            'economics-finance-domain': 'd2923d',
+            'computing': '76b056',
+            'test-prep': 'b189c6',
+            'partner-content': '46a592'
         }
-        default_color = '314453'  #@defaultDomainColor
+        default_color = '46a592'
         hex_color = domain_colors.get(domain, default_color)
         r, g, b = (int(hex_color[2*i:2*(i+1)], 16) / 255.0 for i in range(3))
         return [r, g, b, 1.000]  # alpha
