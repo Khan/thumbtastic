@@ -1,0 +1,22 @@
+{
+    "input_directory": "input",
+    "output_directory": "output",
+    "entries": [
+        {
+            "image": "unitsphere.png",
+            "domain": "math"
+        },
+        {
+            "image": "descartes.png",
+            "domain": "science"
+        },
+        {
+            "image": "balance.png",
+            "domain": "economics-finance-domain"
+        },
+        {
+            "image": "stab1280.png",
+            "domain": "computing"
+        }
+    ]
+}
